@@ -16,6 +16,7 @@ function _init()
   n_gate=14
   n_crystal=18
   n_laser=19
+  n_45mirror=21
 
   routines={}
   ms={} --interactive/movable sprites
@@ -32,12 +33,12 @@ function _update()
     elseif (btnp(2)) then blockmove(plr,"y",-8) --up
     elseif (btnp(3)) then blockmove(plr,"y",8) --down
     elseif (btnp(4)) then blockmove(plr,"x",-8) --z
-    --elseif (btnp(5)) then gateopen(ms[makekey(9*8, 13*8)], 20, {15,16,17}) --x
+    elseif (btnp(5)) then resetlogic()--x
     end
 
-  if (level=="menu") then
-    menulogic()
-  elseif (level=="1") then
+  --if (level=="menu") then
+   -- menulogic()
+  if (level=="1") then
     level1logic()
   elseif (level=="2") then
     level2logic()
@@ -80,22 +81,25 @@ function _draw()
       else
         if value.d == "u" then
           spr(value.n,value.x,value.y,1,1,false,false)
-        elseif value.d == "up" then
         elseif value.d == "ur" then
-        elseif value.d == "r" then
           spr(value.n+1,value.x,value.y,1,1,false,false)
+        elseif value.d == "r" then
+          spr(value.n+2,value.x,value.y,1,1,false,false)
         elseif value.d == "dr" then
+          spr(value.n+1,value.x,value.y,1,1,false,true)
         elseif value.d == "d" then
-          spr(value.n,value.x,value.y,1,1,false,true)
+          spr(value.n,value.x,value.y,1,1,true,true)
         elseif value.d == "dl" then
+          spr(value.n+1,value.x,value.y,1,1,true,true)
         elseif value.d == "l" then
-          spr(value.n+1,value.x,value.y,1,1,true,false)
+          spr(value.n+2,value.x,value.y,1,1,true,false)
         elseif value.d == "ul" then
+          spr(value.n+1,value.x,value.y,1,1,true,false)
         end
       end
       pal()
     end
-    if value.n == n_laser and value.active == true then
+    if value.n == n_laser or value.n == n_laser+1 or value.n == n_laser+2 and value.active == true then
       add(lasers,value)
     end
   end

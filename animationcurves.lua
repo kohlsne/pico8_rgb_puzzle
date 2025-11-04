@@ -81,7 +81,7 @@ function gateopen(obj,f,spritetable)
   end)
 end
 
-function findlaserend(x,y,d)
+function findlaserend(x,y,d,c)
   local dx = 0
   local dy = 0
   if d == "u" then
@@ -91,6 +91,8 @@ function findlaserend(x,y,d)
   elseif d == "ur" then
     dx = 1
     dy = -1
+    x=x+8
+    y=y-1
   elseif d == "r" then
     dx = 1
     x=x+8
@@ -98,6 +100,8 @@ function findlaserend(x,y,d)
   elseif d == "dr" then
     dx = 1
     dy = 1
+    x=x+8
+    y=y+8
   elseif d == "d" then
     dy = 1
     x=x+3
@@ -105,6 +109,8 @@ function findlaserend(x,y,d)
   elseif d == "dl" then
     dx = -1
     dy = 1
+    x=x-1
+    y=y+8
   elseif d == "l" then
     dx = -1
     x=x-1
@@ -112,6 +118,8 @@ function findlaserend(x,y,d)
   elseif d == "ul" then
     dx = -1
     dy = -1
+    x=x-1
+    y=y-1
   end
 
   local xx = x
@@ -127,25 +135,30 @@ function findlaserend(x,y,d)
   end
   xx = xx - dx
   yy = yy - dy
-
+  if colorpixel == gray then
+  end
   return x,y,xx,yy
 end
 
 function laserdraw(obj)
-  local x,y,xx,yy = findlaserend(obj.x,obj.y,obj.d)
+  local x,y,xx,yy = findlaserend(obj.x,obj.y,obj.d,obj.color)
   if (x == 0 and y == 0 and xx == 0 and yy == 0) then
     return
   end
   line(x,y,xx,yy,obj.color)
   -- draw two lines if needed
   if (x == xx) then
-    x,y,xx,yy = findlaserend(obj.x+1,obj.y,obj.d)
+    x,y,xx,yy = findlaserend(obj.x+1,obj.y,obj.d,obj.color)
     line(x,y,xx,yy,obj.color)
   end
   if (y == yy) then
-    x,y,xx,yy = findlaserend(obj.x,obj.y+1,obj.d)
+    x,y,xx,yy = findlaserend(obj.x,obj.y+1,obj.d,obj.color)
     line(x,y,xx,yy,obj.color)
   end
+end
+
+function mirrordraw(obj)
+
 end
 
 function lerp(a,b,t)

@@ -36,24 +36,28 @@ function level1init()
   ms[makekey(13*8, 4*8)] = { n=n_laser,          x=13*8,  y=4*8,   moving=false , color=red, d="u", active = true}
   ms[makekey(13*8, 1*8)] = { n=n_crystal,        x=13*8,  y=1*8,   moving=false , color=red}
   ms[makekey(13*8, 2*8)] = { n=n_neturalblock,   x=13*8,  y=2*8,   moving=false }
-  ms[makekey(1*8, 14*8)] = { n=n_laser,          x=1*8,   y=14*8,   moving=false , color=red, d="u", active = true}
   plr = ms[makekey(startx, starty)]
 end
 
 function level2init()
-    level="2"
-    mapxoffset = mapxoffset + 16
-    mapyoffset = 0
-    ms = nil
-    ms = {}
-    plr = nil
-    local startx = 0*8
-    local starty = 7*8
-    ms[makekey(startx, starty)] = { n=n_plr, x=startx, y=starty, moving=false }
-    ms[makekey(3*8, starty)] = { n=n_neturalblock, x=3*8, y=starty, moving=false }
-    ms[makekey(7*8, 7*8)] = { n=n_laser, x=7*8, y=7*8, moving=false, color=red, d="u", active = true}
-    ms[makekey(7*8, 8*8)] = { n=n_laser, x=7*8, y=8*8, moving=false, color=green, d="d", active = true}
-    ms[makekey(6*8, 7*8)] = { n=n_laser, x=6*8, y=7*8, moving=false, color=blue, d="l", active = true}
-    ms[makekey(8*8, 7*8)] = { n=n_laser, x=8*8, y=7*8, moving=false, color=white, d="r", active = true}
-    plr = ms[makekey(startx, starty)]
+  level="2"
+  mapxoffset = mapxoffset + 16
+  mapyoffset = 0
+  ms = nil
+  ms = {}
+  plr = nil
+  local startx = 0*8
+  local starty = 7*8
+  ms[makekey(startx, starty)] = { n=n_plr, x=startx, y=starty, moving=false }
+  ms[makekey(3*8, starty)] = { n=n_neturalblock, x=3*8, y=starty, moving=false }
+  ms[makekey(7*8, 6*8)] = { n=n_laser, x=7*8, y=6*8, moving=false, color=red, d="u", active = true}
+  ms[makekey(8*8, 6*8)] = { n=n_laser, x=8*8, y=6*8, moving=false, color=red, d="ur", active = true}
+  ms[makekey(8*8, 7*8)] = { n=n_laser, x=8*8, y=7*8, moving=false, color=green, d="r", active = true}
+  ms[makekey(8*8, 8*8)] = { n=n_laser, x=8*8, y=8*8, moving=false, color=green, d="dr", active = true}
+  ms[makekey(7*8, 8*8)] = { n=n_laser, x=7*8, y=8*8, moving=false, color=blue, d="d", active = true}
+  ms[makekey(6*8, 8*8)] = { n=n_laser, x=6*8, y=8*8, moving=false, color=blue, d="dl", active = true}
+  ms[makekey(6*8, 7*8)] = { n=n_laser, x=6*8, y=7*8, moving=false, color=white, d="l", active = true}
+  ms[makekey(6*8, 6*8)] = { n=n_laser, x=6*8, y=6*8, moving=false, color=white, d="ul", active = true}
+  --ms[makekey(5*8, 7*8)] = { n=n_45mirror, x=5*8, y=7*8, moving=false, d="ul"}
+  plr = ms[makekey(startx, starty)]
 end

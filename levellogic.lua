@@ -1,7 +1,12 @@
-function menulogic()
-    if (btn(5)) then
-      level1init()
+
+function resetlogic()
+  if (btn(5)) then
+    if level == "menu" or level == "1" then
+      level2init()
+    elseif level == "2" then
+      level2init()
     end
+  end
 end
 
 function level1logic()
