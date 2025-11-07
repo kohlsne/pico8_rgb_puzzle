@@ -40,8 +40,8 @@ function blockmove(obj,k,offset)
   local x = obj.x
   local y = obj.y
   local keyold=makekey(x,y)
-  if (k=="x") then x += offset
-  else y += offset
+  if (k=="x") then x = x + offset
+  else y = y + offset
   end
   local key=makekey(x,y)
 

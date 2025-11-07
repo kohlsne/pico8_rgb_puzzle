@@ -7,27 +7,34 @@ function _init()
   red=8
   green=11
   blue=12
-  backgroundcolor=3
+  black=0
+  backgroundcolor=4
+
   n_plr=1
-  n_colorblock=7
-  n_neturalblock=13
+  n_uplr=n_plr+1
+  n_rplr=n_plr+2
+  n_dplr=n_plr+3
+  n_lplr=n_plr+4
   n_wall=6
-  n_gate=14
-  n_crystal=18
-  n_ulaser=19
-  n_urlaser=20
-  n_rlaser=21
-  n_fsmirror=23
-  n_bsmirror=24
-  n_hmirror=25
-  n_vmirror=26
+  n_neturalblock=7
+  n_colorblock=8
+  n_ulaser=12
+  n_urlaser=13
+  n_rlaser=14
+  n_crystal=15
+  n_fsmirror=16
+  n_bsmirror=n_fsmirror+1
+  n_hmirror=n_fsmirror+2
+  n_vmirror=n_fsmirror+3
+  n_vgate=20
+  n_hgate=24
 
   routines={}
   ms={} --interactive/movable sprites
   tableinit()
 
   --menuinit()
-  menuinit()
+  level1init()
 end
 
 function makekey(x, y)
@@ -36,12 +43,12 @@ end
 
 -- called once per update at 30 fps
 function _update()
-    if (btnp(0)) then blockmove(plr,"x",-8) --left
-    elseif (btnp(1)) then blockmove(plr,"x",8) --right
-    elseif (btnp(2)) then blockmove(plr,"y",-8) --up
-    elseif (btnp(3)) then blockmove(plr,"y",8) --down
-    --elseif (btnp(4)) then blockmove(plr,"x",-8) --z
-    elseif (btnp(5)) then resetlogic()--x
+    if (btnp(0)) then blockmove(plr,"x",-8) plr.n = n_lplr plr.d = "l" --left
+    elseif (btnp(1)) then blockmove(plr,"x",8) plr.n = n_rplr plr.d = "r"--right
+    elseif (btnp(2)) then blockmove(plr,"y",-8) plr.n = n_uplr plr.d = "u"--up
+    elseif (btnp(3)) then blockmove(plr,"y",8) plr.n = n_dplr plr.d = "d"--down
+    elseif (btnp(4)) then resetlogic()--z
+    elseif (btnp(5)) then rotateblock()--x
     end
 
   if (level==0) then
@@ -66,10 +73,9 @@ function _draw()
   cls(backgroundcolor)
   map(mapxoffset,0,0,0,16,16)
   if (level==0) then
-    camera(-2*8,-12*8)
+    camera(-1*8-2,-9*8-2)
     print("press z to reset level")
     print("press x to rotate block")
-    print("press x to continue")
     camera(0,0)
   elseif(level==1) then
   elseif level==2 then
