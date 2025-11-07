@@ -1,15 +1,28 @@
-
 function resetlogic()
-  if (btn(5)) then
-    if level == "menu" or level == "1" then
-      level2init()
-    elseif level == "2" then
-      level2init()
-    end
+  if level==0 then
+    menuinit()
+  elseif level==1 then
+    level1init()
+  elseif level==2 then
+    level2init()
+  end
+end
+
+function menulogic()
+  if ms[makekey(16*8,1*8)] ~= nil and ms[makekey(16*8,1*8)].n == n_plr then
+    level1init()
   end
 end
 
 function level1logic()
+  --Add wall lock
+  if ms[makekey(0*8,1*8)] ~= nil and ms[makekey(0*8,1*8)].n == n_plr and ms[makekey(-8,1*8)] == nil then
+    ms[makekey(-8,1*8)] = { n=n_wall,   x=-8,   y=1*8,  moving=false }
+  end
+  if ms[makekey(1*8,1*8)] ~= nil and ms[makekey(1*8,1*8)].n == n_plr and ms[makekey(0*8,1*8)] == nil then
+    ms[makekey(0*8,1*8)] = { n=n_wall,   x=0*8,   y=1*8,  moving=false }
+    ms[makekey(-8,1*8)] = nil
+  end
   -- first switch
   gatelogic(makekey(12*8,14*8),makekey(9*8,13*8),red)
   gatelogic(makekey(8*8,4*8),makekey(10*8,4*8),blue)
