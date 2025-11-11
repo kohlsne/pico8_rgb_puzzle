@@ -30,8 +30,8 @@ function menuinit()
   ms[makekey(12*8, 6*8)] = { n=n_vmirror, x=12*8, y=6*8, moving=false }
 
   ms[makekey(5*8, 12*8)] = { n=n_ulaser, x=5*8, y=12*8, moving=false, color=white, d="d", active = true}
-  ms[makekey(8*8, 12*8)] = { n=n_crystal,x=8*8, y=12*8, moving=false , color=white}
-  --ms[makekey(9*8, 14*8)] = { n=n_hgate,           x=9*8,   y=14*8,  moving=false , color=white}
+  ms[makekey(8*8, 12*8)] = { n=n_crystal,x=8*8, y=12*8, moving=false , color=white, active=false}
+  ms[makekey(9*8, 14*8)] = { n=n_hgate,           x=9*8,   y=14*8,  moving=false , color=white}
 
   plr = ms[makekey(startx, starty)]
 end
@@ -72,7 +72,7 @@ function level1init()
   ms[makekey(10*8, 3*8)] = { n=n_vgate,           x=10*8,  y=3*8,   moving=false , color=green}
   ms[makekey(10*8, 2*8)] = { n=n_vgate,           x=10*8,  y=2*8,   moving=false , color=red}
   ms[makekey(13*8, 4*8)] = { n=n_ulaser,          x=13*8,  y=4*8,   moving=false , color=red, d="u", active = true}
-  ms[makekey(13*8, 1*8)] = { n=n_crystal,        x=13*8,  y=1*8,   moving=false , color=red}
+  ms[makekey(13*8, 1*8)] = { n=n_crystal,        x=13*8,  y=1*8,   moving=false , color=red, active = false}
   ms[makekey(13*8, 2*8)] = { n=n_neturalblock,   x=13*8,  y=2*8,   moving=false }
   plr = ms[makekey(startx, starty)]
 end

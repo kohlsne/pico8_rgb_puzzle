@@ -167,8 +167,7 @@ function mirrordraw(x,y,d,c)
   if fail1 then
     return
   end
-  line(x0,y0,x1,y1,c)
-
+  add(lasertbl,{x0=x0,y0=y0,x1=x1,y1=y1,c=c})
 end
 
 function lerp(a,b,t)

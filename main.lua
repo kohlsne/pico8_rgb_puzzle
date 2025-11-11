@@ -8,7 +8,7 @@ function _init()
   green=11
   blue=12
   black=0
-  backgroundcolor=4
+  backgroundcolor=3
 
   n_plr=1
   n_uplr=n_plr+1
@@ -31,10 +31,11 @@ function _init()
 
   routines={}
   ms={} --interactive/movable sprites
+  lasertbl={}
   tableinit()
 
   --menuinit()
-  level1init()
+  level2init()
 end
 
 function makekey(x, y)
@@ -57,6 +58,14 @@ function _update()
     level1logic()
   elseif (level==2) then
     level2logic()
+  end
+
+  lasertbl = nil
+  lasertbl = {}
+  for key, value in pairs(ms) do
+    if value.n == n_ulaser or value.n == n_urlaser or value.n == n_rlaser and value.active == true then
+      updatelasers(value.n,value.x,value.y,value.d,value.color)
+    end
   end
 
   for r in all(routines) do
@@ -85,7 +94,8 @@ function _draw()
 --Draw section of map (starting from TILE_X, TILE_Y) at screen position SX, SY (pixels)
   end
 
-  local lasers = {}
+  for v in all(lasertbl) do line(v.x0,v.y0,v.x1,v.y1,v.c) end
+
   for key, value in pairs(ms) do
     if value.color == nil then
       spr(value.n,value.x,value.y)
@@ -114,14 +124,9 @@ function _draw()
       end
       pal()
     end
-    if value.n == n_ulaser or value.n == n_urlaser or value.n == n_rlaser and value.active == true then
-      add(lasers,value)
-    end
   end
-  -- need to draw lasers last
-  --foreach(lasers,laserdraw)
-   for v in all(lasers) do laserdraw(v.n,v.x,v.y,v.d,v.color) end
- -- for key, value in ipairs(lasers) do
+
+ -- for key, value in ipairs(laserspritestbl) do
  --   print(value.n)
  -- end
  -- for key, value in pairs(mirroroffset) do
@@ -135,3 +140,6 @@ function async(func)
 end
 
 
+-- todo
+-- backround color same as eye, laser can get into player sprite
+-- when a laser touches a crystal switch it to active
