@@ -18,6 +18,9 @@ function _init()
   n_wall=6
   n_neturalblock=7
   n_colorblock=8
+  n_switchred=9
+  n_switchgreen=n_switchred+1
+  n_switchblue=n_switchred+2
   n_ulaser=12
   n_urlaser=13
   n_rlaser=14
@@ -32,10 +35,11 @@ function _init()
   routines={}
   ms={} --interactive/movable sprites
   lasertbl={}
+  switchtbl={}
   tableinit()
 
-  --menuinit()
-  level2init()
+  menuinit()
+  --level1init()
 end
 
 function makekey(x, y)
@@ -52,6 +56,7 @@ function _update()
     elseif (btnp(5)) then rotateblock()--x
     end
 
+  walllocks()
   if (level==0) then
     menulogic()
   elseif (level==1) then
@@ -63,10 +68,14 @@ function _update()
   lasertbl = nil
   lasertbl = {}
   for key, value in pairs(ms) do
-    if value.n == n_ulaser or value.n == n_urlaser or value.n == n_rlaser and value.active == true then
-      updatelasers(value.n,value.x,value.y,value.d,value.color)
+    if value.n == n_ulaser or value.n == n_urlaser or value.n == n_rlaser  then
+      if (value.color == red and redactive) or (value.color == green and greenactive) or (value.color == blue and blueactive) or (value.color == white and white) then
+        updatelasers(value.n,value.x,value.y,value.d,value.color)
+      end
     end
   end
+
+  switchlogic()
 
   for r in all(routines) do
     if (costatus(r)) == "dead" then
@@ -94,7 +103,11 @@ function _draw()
 --Draw section of map (starting from TILE_X, TILE_Y) at screen position SX, SY (pixels)
   end
 
-  for v in all(lasertbl) do line(v.x0,v.y0,v.x1,v.y1,v.c) end
+  for v in all(lasertbl) do
+    line(v.x0,v.y0,v.x1,v.y1,v.c)
+    --laserhitanimation(v.x0,v.y0,v.c)
+  end
+
 
   for key, value in pairs(ms) do
     if value.color == nil then
@@ -124,9 +137,12 @@ function _draw()
       end
       pal()
     end
+    if value.n == n_crystal then
+      print(value.active)
+    end
   end
 
- -- for key, value in ipairs(laserspritestbl) do
+-- for key, value in ipairs(laserspritestbl) do
  --   print(value.n)
  -- end
  -- for key, value in pairs(mirroroffset) do
@@ -143,3 +159,4 @@ end
 -- todo
 -- backround color same as eye, laser can get into player sprite
 -- when a laser touches a crystal switch it to active
+-- colorblock should also contain where the switch is

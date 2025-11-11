@@ -4,6 +4,10 @@ function menuinit()
   mapyoffset = 0
   local startx = 2*8
   local starty = 13*8
+  redactive = true
+  greenactive = true
+  blueactive = true
+  whiteactive = true
   ms = nil
   ms = {}
   ms[makekey(startx, starty)] = { n=n_plr, x=startx, y=starty, moving=false, d=nil }
@@ -30,8 +34,8 @@ function menuinit()
   ms[makekey(12*8, 6*8)] = { n=n_vmirror, x=12*8, y=6*8, moving=false }
 
   ms[makekey(5*8, 12*8)] = { n=n_ulaser, x=5*8, y=12*8, moving=false, color=white, d="d", active = true}
-  ms[makekey(8*8, 12*8)] = { n=n_crystal,x=8*8, y=12*8, moving=false , color=white, active=false}
-  ms[makekey(9*8, 14*8)] = { n=n_hgate,           x=9*8,   y=14*8,  moving=false , color=white}
+  ms[makekey(8*8, 12*8)] = { n=n_crystal,x=8*8, y=12*8, moving=false , color=white, active=false, xgate = 9*8, ygate=14*8}
+  ms[makekey(9*8, 14*8)] = { n=n_hgate,  x=9*8, y=14*8,  moving=false , color=white}
 
   plr = ms[makekey(startx, starty)]
 end
@@ -41,7 +45,11 @@ function level1init()
   mapxoffset = 16
   mapyoffset = 0
   local startx = 0*8
-  local starty = 1*8
+  starty = 1*8
+  redactive = true
+  greenactive = true
+  blueactive = true
+  whiteactive = true
   ms = nil
   ms = {}
   ms[makekey(startx, starty)] = { n=n_plr, x=startx, y=starty, moving=false, d=nil }
@@ -55,7 +63,7 @@ function level1init()
   ms[makekey(4*8, 11*8)] = { n=n_neturalblock,   x=4*8,   y=11*8,  moving=false }
   ms[makekey(2*8, 12*8)] = { n=n_neturalblock,   x=2*8,   y=12*8,  moving=false }
   ms[makekey(8*8, 14*8)] = { n=n_colorblock,     x=8*8,   y=14*8,  moving=false , color=red}
-  ms[makekey(9*8, 13*8)] = { n=n_vgate,           x=9*8,   y=13*8,  moving=false , color=red}
+  ms[makekey(9*8, 13*8)] = { n=n_vgate,          x=9*8,   y=13*8,  moving=false , color=red}
   ms[makekey(8*8, 5*8)]  = { n=n_neturalblock,   x=8*8,   y=5*8,   moving=false }
   ms[makekey(8*8, 6*8)]  = { n=n_neturalblock,   x=8*8,   y=6*8,   moving=false }
   ms[makekey(8*8, 7*8)]  = { n=n_neturalblock,   x=8*8,   y=7*8,   moving=false }
@@ -63,8 +71,8 @@ function level1init()
   ms[makekey(8*8, 9*8)]  = { n=n_neturalblock,   x=8*8,   y=9*8,   moving=false }
   ms[makekey(8*8, 10*8)] = { n=n_neturalblock,   x=8*8,   y=10*8,  moving=false }
   ms[makekey(8*8, 11*8)] = { n=n_neturalblock,   x=8*8,   y=11*8,  moving=false }
-  ms[makekey(11*8, 6*8)] = { n=n_colorblock,     x=11*8,  y=6*8,   moving=false , color=green }
-  ms[makekey(11*8, 7*8)] = { n=n_colorblock,     x=11*8,  y=7*8,   moving=false , color=blue}
+  ms[makekey(11*8, 6*8)] = { n=n_colorblock,     x=11*8,  y=6*8,   moving=false , color=blue}
+  ms[makekey(11*8, 7*8)] = { n=n_colorblock,     x=11*8,  y=7*8,   moving=false , color=green}
   ms[makekey(11*8, 8*8)] = { n=n_colorblock,     x=11*8,  y=8*8,   moving=false , color=red}
   ms[makekey(14*8, 6*8)] = { n=n_neturalblock,   x=14*8,  y=6*8,   moving=false }
   ms[makekey(14*8, 7*8)] = { n=n_neturalblock,   x=14*8,  y=7*8,   moving=false }
@@ -75,17 +83,28 @@ function level1init()
   ms[makekey(13*8, 1*8)] = { n=n_crystal,        x=13*8,  y=1*8,   moving=false , color=red, active = false}
   ms[makekey(13*8, 2*8)] = { n=n_neturalblock,   x=13*8,  y=2*8,   moving=false }
   plr = ms[makekey(startx, starty)]
+
+  switchtbl = nil
+  switchtbl = {}
+  add(switchtbl, { x=12*8,y=14*8, n = n_switchred, c = red, activatelaser = false, active = false, xgate = 9*8, ygate=13*8})
+  add(switchtbl, { x=8*8,y=3*8, n = n_switchgreen, c = green, activatelaser = false, active = false, xgate = 10*8, ygate=3*8})
+  add(switchtbl, { x=8*8,y=4*8, n = n_switchblue, c = blue, activatelaser = false, active = false, xgate = 10*8, ygate=4*8})
+  add(switchtbl, { x=8*8,y=1*8, n = n_switchred, c = red, activatelaser = false, active = false, xgate = 10*8, ygate=2*8})
 end
 
 function level2init()
   level=2
   mapxoffset = 32
   mapyoffset = 0
-  ms = nil
-  ms = {}
   plr = nil
   local startx = 0*8
-  local starty = 7*8
+  starty = 7*8
+  redactive = true
+  greenactive = true
+  blueactive = true
+  whiteactive = true
+  ms = nil
+  ms = {}
   ms[makekey(startx, starty)] = { n=n_plr, x=startx, y=starty, moving=false, d = nil }
   ms[makekey(4*8, starty)] = { n=n_fsmirror, x=4*8, y=starty, moving=false }
   ms[makekey(5*8, starty)] = { n=n_bsmirror, x=5*8, y=starty, moving=false }
