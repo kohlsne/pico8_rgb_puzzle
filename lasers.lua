@@ -98,3 +98,11 @@ function updatelasers(n,x,y,d,c)
   end
 end
 
+function deactivatecrystals()
+  for v in all(lasertbl) do
+    local x = flr(v.x1/8) * 8
+    local y = flr(v.y1/8) * 8
+    local block = ms[makekey(x,y)]
+    if block ~= nil and block.n == n_crystal then block.active = false end
+  end
+end

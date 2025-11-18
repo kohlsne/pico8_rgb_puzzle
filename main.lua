@@ -30,7 +30,7 @@ function _init()
   n_hmirror=n_fsmirror+2
   n_vmirror=n_fsmirror+3
   n_vgate=20
-  n_hgate=24
+  n_hgate=25
 
   routines={}
   ms={} --interactive/movable sprites
@@ -38,8 +38,8 @@ function _init()
   switchtbl={}
   tableinit()
 
-  menuinit()
-  --level1init()
+  --menuinit()
+  level2init()
 end
 
 function makekey(x, y)
@@ -53,7 +53,7 @@ function _update()
     elseif (btnp(2)) then blockmove(plr,"y",-8) plr.n = n_uplr plr.d = "u"--up
     elseif (btnp(3)) then blockmove(plr,"y",8) plr.n = n_dplr plr.d = "d"--down
     elseif (btnp(4)) then resetlogic()--z
-    elseif (btnp(5)) then rotateblock()--x
+    elseif (btnp(5)) then rotateblock() --x
     end
 
   walllocks()
@@ -65,6 +65,11 @@ function _update()
     level2logic()
   end
 
+
+
+
+
+  deactivatecrystals()
   lasertbl = nil
   lasertbl = {}
   for key, value in pairs(ms) do
@@ -72,6 +77,12 @@ function _update()
       if (value.color == red and redactive) or (value.color == green and greenactive) or (value.color == blue and blueactive) or (value.color == white and white) then
         updatelasers(value.n,value.x,value.y,value.d,value.color)
       end
+    end
+  end
+
+  for key, value in pairs(ms) do
+    if value.n == n_crystal then
+      crystallogic(key)
     end
   end
 
@@ -92,20 +103,19 @@ function _draw()
   map(mapxoffset,0,0,0,16,16)
   if (level==0) then
     camera(-1*8-2,-9*8-2)
-    print("press z to reset level")
-    print("press x to rotate block")
+    if plr.x >= 5*8 and plr.x <= 13*8 and plr.y >= 12*8 and plr.y <= 14*8 then
+      print("rotate lasers & mirrors")
+      print("that RGB is facing")
+    else
+      print("press z to reset level")
+      print("press x to rotate block")
+    end
     camera(0,0)
-  elseif(level==1) then
-  elseif level==2 then
-    --Set a screen offset of -x, -y for all drawing operations
-    -- camera(16,0)
- --    MAP(TILE_X, TILE_Y, [SX, SY], [TILE_W, TILE_H], [LAYERS])
---Draw section of map (starting from TILE_X, TILE_Y) at screen position SX, SY (pixels)
   end
 
   for v in all(lasertbl) do
     line(v.x0,v.y0,v.x1,v.y1,v.c)
-    --laserhitanimation(v.x0,v.y0,v.c)
+   -- laserhitanimation(v.x0,v.y0,v.c)
   end
 
 
@@ -136,9 +146,6 @@ function _draw()
         end
       end
       pal()
-    end
-    if value.n == n_crystal then
-      print(value.active)
     end
   end
 

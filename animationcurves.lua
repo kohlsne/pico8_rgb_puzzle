@@ -49,6 +49,7 @@ function blockmove(obj,k,offset)
   local mapsprite = mget(x/8+ mapxoffset,y/8+mapyoffset)
   if (fget(mapsprite,1) and ms[key]==nil) then
     animate(obj,k, obj[k] + offset,linear,3)
+    if plr.n == ms[keyold].n then sfx(0) else sfx(2) end
     return true
   elseif (fget(mapsprite,0) or (ms[key] ~= nil and fget(ms[key].n,0))) then
     return false
@@ -66,14 +67,32 @@ function gateopen(obj,f,spritetable)
   local key = makekey(obj.x,obj.y)
   obj.moving = true
   async(function()
+    local i
     for index, spritenum in ipairs(spritetable) do
+      obj.n = spritenum
+      sfx(4+index)
       for j=0,f do
         yield()
       end
-      obj.n = spritenum
+      i = index+1
     end
+    sfx(4+i)
    ms[key] = nil
    ms.key = nil
+  end)
+end
+
+function gateclose(obj,f,spritetable)
+  obj.moving = true
+  async(function()
+    for index, spritenum in ipairs(spritetable) do
+      obj.n = spritenum
+      sfx(10-index)
+      for j=0,f do
+        yield()
+      end
+    end
+    obj.moving = false
   end)
 end
 
